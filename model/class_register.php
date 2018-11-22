@@ -10,9 +10,9 @@ class Register {
 		$this->conn = $db;
 	}  //TheEnd function
 
-	// public function Redirect($url){
-	// 	header("Location: $url");
-	// } //TheEnd function
+	public function Redirect(){
+		header("Location:".$_SERVER['HTTP_REFERER']);
+	} //TheEnd function
 
 		public function showRegister(){
 			try{
@@ -199,15 +199,16 @@ class Register {
 		// $n->deleteRegister("081025610001");
 
 		if($_POST){
-				echo "id : ".$_POST['id']."id_emp : ".$_POST['id_emp']."dep : ".$_POST['dep']."pos : ".$_POST['pos']."exp : ".$_POST['exp']."datepicker : ".$_POST['datepicker']."grate : ".$_POST['inputState'];
-				$bt = $_POST['bt']." ".$_POST['street']." ".$_POST['tt']." ".$_POST['up']." ".$_POST['ds']." ".$_POST['pc'];
-				echo "title : ".$_POST['title']."name : ".$_POST['name']."sex : ".$_POST['customRadioInline1']."BD : ".$_POST['dd']."ที่อยู่ : ".$bt."tel : ".$_POST['tel']."mail : ".$_POST['mail'];
+				// echo "id : ".$_POST['id']."id_emp : ".$_POST['id_emp']."dep : ".$_POST['dep']."pos : ".$_POST['pos']."exp : ".$_POST['exp']."datepicker : ".$_POST['datepicker']."grate : ".$_POST['inputState'];
+				// $bt = $_POST['bt']." ".$_POST['street']." ".$_POST['tt']." ".$_POST['up']." ".$_POST['ds']." ".$_POST['pc'];
+				// echo "title : ".$_POST['title']."name : ".$_POST['name']."sex : ".$_POST['customRadioInline1']."BD : ".$_POST['dd']."ที่อยู่ : ".$bt."tel : ".$_POST['tel']."mail : ".$_POST['mail'];
 
 				echo $n->addProfile($_POST['id_emp'], $_POST['title']." ".$_POST['name'], $_POST['dd'], $_POST['customRadioInline1'], $bt, $_POST['inputState'], $_POST['tel'], $_POST['mail'], "รอการตรวจสอบ");
 				echo $n->addRegister($_POST['id'], $_POST['id_emp'], $_POST['dep'], $_POST['pos'], $_POST['exp'], $_POST['datepicker'], $_POST['inputState']);
-
+				function Redirect();
 	  }else{
 			echo "never data!!";
+			function Redirect();
 		}
 
 
