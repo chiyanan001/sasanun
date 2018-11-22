@@ -67,6 +67,27 @@ class Register {
 				}
 			}  //TheEnd function
 
+			public function addProfile($profile_id,$name_lastName,$profileBirthday,$profileGender,$profileAddress,$education_id,$profileTel,$profileEmail,$profileStatus){
+				try{
+					$Register = $this->conn->prepare("INSERT INTO profile (profile_id, name_lastName, profileBirthday, profileGender, profileAddress, education_id, profileTel, profileEmail, profileStatus) VALUES (:profile_id,:name_lastName,:profileBirthday,:profileGender,:profileAddress,:education_id,:profileTel,:profileEmail,:profileStatus)");
+					$Register->bindparam(":profile_id",$profile_id);
+					$Register->bindparam(":name_lastName",$name_lastName);
+					$Register->bindparam(":profileBirthday",$profileBirthday);
+					$Register->bindparam(":profileGender",$profileGender);
+					$Register->bindparam(":profileAddress",$profileAddress);
+					$Register->bindparam(":education_id",$education_id);
+					$Register->bindparam(":profileTel",$profileTel);
+					$Register->bindparam(":profileEmail",$profileEmail);
+					$Register->bindparam(":profileStatus",$profileStatus);
+					$Register->execute();
+				}
+				catch(PDOException $error){
+					echo $sql . "<br>" . $error->getMessage();
+					$stm = "Error";
+					return $stm;
+				}
+			}  //TheEnd function
+
 			public function editRegisterByDepartment($register_id,$department_id){
 				try{
 					$Register = $this->conn->prepare("UPDATE register SET department_id = :department_id WHERE register.register_id = :register_id");
@@ -178,8 +199,13 @@ class Register {
 		// $n->deleteRegister("081025610001");
 
 		if($_POST){
-				echo "id : ".$_POST['id']."id_emp : ".$_POST['id_emp']."dep : ".$_POST['dep']."pos : ".$_POST['pos']."exp : ".$_POST['exp']."datepicker : ".$_POST['datepicker']."inputState : ".$_POST['inputState'];
+				echo "id : ".$_POST['id']."id_emp : ".$_POST['id_emp']."dep : ".$_POST['dep']."pos : ".$_POST['pos']."exp : ".$_POST['exp']."datepicker : ".$_POST['datepicker']."grate : ".$_POST['inputState'];
+				$bt = $_POST['bt']." ".$_POST['street']." ".$_POST['tt']." ".$_POST['up']." ".$_POST['ds']." ".$_POST['pc'];
+				echo "title : ".$_POST['title']."name : ".$_POST['name']."sex : ".$_POST['customRadioInline1']."BD : ".$_POST['dd']."ที่อยู่ : ".$bt."tel : ".$_POST['tel']."mail : ".$_POST['mail'];
+
+				echo $n->addProfile($_POST['id_emp'], $_POST['title']." ".$_POST['name'], $_POST['dd'], $_POST['customRadioInline1'], $bt, $_POST['inputState'], $_POST['tel'], $_POST['mail'], "รอการตรวจสอบ");
 				echo $n->addRegister($_POST['id'], $_POST['id_emp'], $_POST['dep'], $_POST['pos'], $_POST['exp'], $_POST['datepicker'], $_POST['inputState']);
+
 	  }else{
 			echo "never data!!";
 		}
